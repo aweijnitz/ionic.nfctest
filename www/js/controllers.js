@@ -1,30 +1,17 @@
 angular.module('starter.controllers', [])
 
-  .controller('DashCtrl', function ($scope, $cordovaNfc) {
+  .controller('DashCtrl', function ($scope, $cordovaNfc, $cordovaNfcUtil) {
 
     //Because of the problem about the async-ness of the nfc plugin, we need to wait
     //for it to be ready.
     $cordovaNfc.then(function (nfcInstance) {
 
-      //Use the plugins interface as you go, in a more "angular" way
-      nfcInstance.addNdefListener(function (nfcEvent) { // addTagDiscoveredListener
-          //Callback when ndef got triggered
-          console.log('addNdefListener - ' + JSON.stringify(nfcEvent.tag, null, 2));
-        })
-        .then(
-          //Listener Success callback
-          function listenerAdded(event) {
-            console.log('addNdefListener - NFC Tag event listener added.');
-          },
-          //Listerner Fail callback
-          function listenerAddFailed(err) {
-            console.log('addNdefListener - NFC Tag event listener could not be added. Reason: ' + JSON.stringify(reason));
-            alert('Could not register for NFC events. ' + JSON.stringify(reason));
-          });
-
       nfcInstance.addTagDiscoveredListener(function (nfcEvent) { // addTagDiscoveredListener
           //Callback when ndef got triggered
           console.log('addTagDiscoveredListener - ' + JSON.stringify(nfcEvent.tag, null, 2));
+          $cordovaNfcUtil.then(function(nfcUtil){
+            console.log('ID' + nfcUtil.bytesToHexString(nfcEvent.tag.id) );
+          });
         })
         .then(
           //Listener Success callback
