@@ -5,9 +5,9 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'angular-nfc', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'ngCordova.plugins.nfc', 'starter.controllers', 'starter.services'])
 
-  .run(function ($ionicPlatform, nfcService) {
+  .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -20,19 +20,8 @@ angular.module('starter', ['ionic', 'angular-nfc', 'starter.controllers', 'start
         // org.apache.cordova.statusbar required
         StatusBar.styleDefault();
       }
-      if (!!nfcService) {
-        nfcService.addTagDiscoveredListener(function tagEventHandler(nfcEvent) {
-          console.log(JSON.stringify(nfcEvent.tag, null, 2));
-        }, function listenerAdded() {
-          console.log('NFC Tag event listener added.');
-        }, function listenerAddFailed(reason) {
-          console.log('NFC Tag event listener could not be added. Reason: '+JSON.stringify(reason));
-          alert('Could not register for NFC events. '+JSON.stringify(reason));
-        });
-      } else {
-        alert('No nfcService found! Check your settings!');
-      }
-    });
+
+    })
   })
 
   .config(function ($stateProvider, $urlRouterProvider) {
