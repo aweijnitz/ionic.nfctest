@@ -1,0 +1,36 @@
+{
+  "name": "angular-nfc",
+  "version": "0.0.0",
+  "authors": [
+    "mahees ishaq <mahees.ishaq@gmail.com>"
+  ],
+  "description": "NFC wrapper (+using promises) for phonegap-nfc for angular and ionic",
+  "main": "src/js/angular-nfc.js",
+  "keywords": [
+    "angular",
+    "nfc",
+    "ionic",
+    "nfcservice",
+    "phonegap",
+    "ndef"
+  ],
+  "license": "Apache 2",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "homepage": "https://github.com/mahees/angular-nfc",
+  "_release": "0.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.0.0",
+    "commit": "9ba157c91180c2f0cc0c151699908cceed2a810b"
+  },
+  "_source": "git://github.com/mahees/angular-nfc.git",
+  "_target": "~0.0.0",
+  "_originalSource": "angular-nfc",
+  "_direct": true
+}
