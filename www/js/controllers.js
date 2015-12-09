@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-  .controller('DashCtrl', function ($scope, $cordovaNfc, $cordovaNfcUtil) {
+  .controller('StartCtrl', function ($scope, ProductTagStore, $cordovaNfc, $cordovaNfcUtil) {
 
     //Because of the problem about the async-ness of the nfc plugin, we need to wait
     //for it to be ready.
@@ -9,8 +9,10 @@ angular.module('starter.controllers', [])
       nfcInstance.addTagDiscoveredListener(function (nfcEvent) { // addTagDiscoveredListener
           //Callback when ndef got triggered
           console.log('addTagDiscoveredListener - ' + JSON.stringify(nfcEvent.tag, null, 2));
-          $cordovaNfcUtil.then(function(nfcUtil){
-            console.log('ID' + nfcUtil.bytesToHexString(nfcEvent.tag.id) );
+          $cordovaNfcUtil.then(function (nfcUtil) {
+            console.log('ID' + nfcUtil.bytesToHexString(nfcEvent.tag.id));
+            nfcEvent.tag.id = nfcUtil.bytesToHexString(nfcEvent.tag.id);
+            ProductTagStore.add(nfcEvent.tag);
           });
         })
         .then(
@@ -24,9 +26,12 @@ angular.module('starter.controllers', [])
             alert('Could not register for NFC events. ' + JSON.stringify(reason));
           });
     });
+
+    $scope.products = ProductTagStore.all();
+
   })
 
-  .controller('ChatsCtrl', function ($scope, Chats) {
+  .controller('ProductComparisonCtrl', function ($scope, $state, ProductTagStore) {
     // With the new view caching in Ionic, Controllers are only called
     // when they are recreated or on app start, instead of every page change.
     // To listen for when this page is active (for example, to refresh data),
@@ -35,18 +40,41 @@ angular.module('starter.controllers', [])
     //$scope.$on('$ionicView.enter', function(e) {
     //});
 
-    $scope.chats = Chats.all();
-    $scope.remove = function (chat) {
-      Chats.remove(chat);
+    $scope.products = ProductTagStore.all();
+    $scope.remove = function (product) {
+      ProductTagStore.remove(product);
     };
+
+    $scope.$on('$ionicView.enter', function (e) {
+      console.log('ENTER EVENT ProductComparisonCtrl params: ');
+      $scope.products = ProductTagStore.all();
+
+    });
+
   })
 
-  .controller('ChatDetailCtrl', function ($scope, $stateParams, Chats) {
-    $scope.chat = Chats.get($stateParams.chatId);
+  .controller('ProductDetailCtrl', function ($scope, $stateParams, $state, ProductTagStore) {
+    console.log('Method ProductDetailCtrl');
+    var me = this;
+    me.product = ProductTagStore.get($stateParams.tagId);
+
+    $scope.getProduct = function () {
+      return me.product;
+    };
+
+    $scope.$on('$ionicView.enter', function (e) {
+      console.log('ENTER EVENT ProductDetailCtrl ID: ' + JSON.stringify($stateParams.tagId));
+      me.product = ProductTagStore.get($stateParams.tagId);
+    });
   })
 
-  .controller('AccountCtrl', function ($scope) {
+  .controller('SettingsCtrl', function ($scope) {
     $scope.settings = {
-      enableFriends: true
+      enableNFC: true
+    };
+
+    $scope.exitApp = function () {
+      //alert('Exiting app.');
+      ionic.Platform.exitApp();
     };
   });

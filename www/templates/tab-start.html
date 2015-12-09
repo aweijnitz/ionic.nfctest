@@ -1,0 +1,19 @@
+<ion-view view-title="Product Comparison with NFC">
+  <ion-content class="padding">
+      <div style="align-content: center; text-align: center;">
+        <h3 style="color: darkgray;">Use NFC scanner to add products, then compare on next tab.</h3>
+      </div>
+
+    <div class="list card" ng-repeat="product in products" type="item-text-wrap" href="#/tab/product/{{product.id}}">
+      <div class="item item-divider">{{product.id}}</div>
+      <div class="item item-body">
+        <div class="list">
+          <div class="list-item" ng-repeat="type in product.techTypes">
+            {{type}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </ion-content>
+</ion-view>

@@ -1,47 +1,41 @@
 angular.module('starter.services', [])
 
-.factory('Chats', function() {
+.factory('ProductTagStore', function() {
   // Might use a resource here that returns a JSON array
 
-  // Some fake testing data
-  var chats = [{
-    id: 0,
-    name: 'Ben Sparrow',
-    lastText: 'You on your way?',
-    face: 'img/ben.png'
-  }, {
-    id: 1,
-    name: 'Max Lynx',
-    lastText: 'Hey, it\'s me',
-    face: 'img/max.png'
-  }, {
-    id: 2,
-    name: 'Adam Bradleyson',
-    lastText: 'I should buy a boat',
-    face: 'img/adam.jpg'
-  }, {
-    id: 3,
-    name: 'Perry Governor',
-    lastText: 'Look at my mukluks!',
-    face: 'img/perry.png'
-  }, {
-    id: 4,
-    name: 'Mike Harrington',
-    lastText: 'This is wicked good ice cream.',
-    face: 'img/mike.png'
+  /* Example tag object
+   {
+   "id": "04924afa063b80",
+   "techTypes": [
+   "android.nfc.tech.IsoDep",
+   "android.nfc.tech.NfcA"
+   ]
+   }
+
+   */
+  var productTags = [{
+    "id": "DEMO-1111111",
+    "techTypes": [
+      "demo.always.present",
+      "android.nfc.tech.IsoDep",
+      "android.nfc.tech.NfcA"
+    ]
   }];
 
   return {
     all: function() {
-      return chats;
+      return productTags;
     },
-    remove: function(chat) {
-      chats.splice(chats.indexOf(chat), 1);
+    add: function add(tag) {
+      productTags.push(tag);
     },
-    get: function(chatId) {
-      for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
-          return chats[i];
+    remove: function(tag) {
+      productTags.splice(productTags.indexOf(tag), 1);
+    },
+    get: function(tagId) {
+      for (var i = 0; i < productTags.length; i++) {
+        if (productTags[i].id === parseInt(tagId)) {
+          return productTags[i];
         }
       }
       return null;

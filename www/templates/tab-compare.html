@@ -1,0 +1,29 @@
+<ion-view view-title="Compare">
+  <ion-content>
+    <div style="align-content: center; text-align: center;">
+      <h3 style="color: darkgray;">Display product comparion view here.</h3>
+      <p>Hint: Swipe <i>from right</i> on each item to remove.</p>
+    </div>
+
+    <ion-list>
+      <!-- when details page complete:
+            <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="product in products" type="item-text-wrap" href="#/tab/compare/{{product.id}}">
+      -->
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="product in products"
+                type="item-text-wrap">
+        <img ng-src="img/icon_nfc.png">
+
+        <h2>{{product.id}}</h2>
+
+        <p>Nr tech types: {{product.techTypes.length}}</p>
+
+        <!--
+        <i class="icon ion-chevron-right icon-accessory"></i>
+        -->
+        <ion-option-button class="button-assertive" ng-click="remove(product)">
+          Remove
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
