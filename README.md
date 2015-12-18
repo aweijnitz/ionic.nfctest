@@ -1,4 +1,4 @@
-# ionic.techtest - an Ionic tehnology exploration
+# ionic.nfctest - an Ionic tehnology exploration
 
 # Setup
 
